@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/about"
+        android:orderInCategory="100"
+        android:title="About"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/bug"
+        android:orderInCategory="300"
+        android:title="Report Bug/Errors"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/rate"
+        android:orderInCategory="400"
+        android:title="Rate our App"
+        app:showAsAction="never" />
+
+
+    <item
+        android:id="@+id/mshare"
+        android:orderInCategory="600"
+        android:title="Share this App"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/disclaim"
+        android:orderInCategory="700"
+        android:title="Settings"
+        app:showAsAction="never" />
+
+
+</menu>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_gravity="top|left"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_arrow_back_black_36dp"
+        android:background="null"
+        android:padding="8dp"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:layout_marginTop="55dp"
+            android:text="About this App"
+            android:id="@+id/tv1"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:padding="10dp"
+            android:gravity="center"
+            android:text="GRE Word List Maker v1.0. Software developed by Sanved Tapkeer. This is developed under an open source license.
+You are free to indulge and fork it on Github."
+            android:layout_marginTop="5dp"
+            android:id="@+id/tv2"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/bGit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="github"/>
+
+
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
