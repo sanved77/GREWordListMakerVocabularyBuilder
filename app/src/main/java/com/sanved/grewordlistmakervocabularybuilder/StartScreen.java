@@ -3,6 +3,7 @@ package com.sanved.grewordlistmakervocabularybuilder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.net.Uri;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ public class StartScreen extends AppCompatActivity {
     ArrayList<WordData> list;
     private static Tracker mTracker;
     RVAdapt adapt;
+    FloatingActionButton addWord;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +51,7 @@ public class StartScreen extends AppCompatActivity {
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.black));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         getSupportActionBar().setTitle("Word List");
 
         rv = (RecyclerView)findViewById(R.id.rv);
@@ -57,13 +59,22 @@ public class StartScreen extends AppCompatActivity {
         rv.setLayoutManager(llm);
         list = new ArrayList<>();
 
+        addWord = (FloatingActionButton) findViewById(R.id.fabAdd);
+        addWord.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(StartScreen.this, AddWord.class);
+                startActivity(i);
+            }
+        });
+
     }
 
     public void fillData(){
 
         WordData wd = new WordData(1,"misanthrope", "Being an misanthrope doesn't really mean that the person is an introvert");
-        WordData wd2 = new WordData(1,"dhuski", "Dhuski cha vaas, sarvat khaas");
-        WordData wd3 = new WordData(1,"nagdi", "Nagdi bai chane ke khet mein");
+        WordData wd2 = new WordData(1,"ubiquitous", "The greed for money seems to be ubiquitous");
+        WordData wd3 = new WordData(1,"polyglot ", "Polyglots often tend to have a huge memory");
 
         list.add(wd);
         list.add(wd2);
@@ -160,4 +171,8 @@ public class StartScreen extends AppCompatActivity {
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }

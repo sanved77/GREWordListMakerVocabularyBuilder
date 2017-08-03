@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@color/blue"
+    android:background="@color/white"
     android:padding="1dp"
 
     >
@@ -18,7 +18,7 @@
         android:focusable="true"
         android:clickable="true"
         android:padding="12dp"
-        android:background="@color/white"
+        android:background="@color/blue"
         android:foreground="?android:attr/selectableItemBackground">
 
         <RelativeLayout
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="misanthrope"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="30sp" />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:layout_below="@+id/tvWord"
                 android:layout_marginTop="3dp"
                 android:text="Being a misanthrope doesn't necessarily mean that the person is an introvert."
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"/>
 
         </RelativeLayout>

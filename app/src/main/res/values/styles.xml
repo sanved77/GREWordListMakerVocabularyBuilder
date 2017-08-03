@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryDark">@color/blue</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
+    <!-- Button theme -->
+    <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/white</item>
+        <item name="android:textColor">@color/blue</item>
+    </style>
 </resources>

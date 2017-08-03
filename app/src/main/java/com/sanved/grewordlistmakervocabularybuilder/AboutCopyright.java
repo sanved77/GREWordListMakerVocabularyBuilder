@@ -38,7 +38,7 @@ public class AboutCopyright extends AppCompatActivity {
                         .setCategory("Github")
                         .setAction("Github Opened " + Build.DEVICE)
                         .build());
-                String url = "http://www.google.com";
+                String url = "https://github.com/sanved77/GREWordListMakerVocabularyBuilder";
                 // TODO: 03-08-2017 Add github url 
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));

@@ -22,6 +22,7 @@
         </activity>
 
         <activity android:name=".AboutCopyright"></activity>
+        <activity android:name=".AddWord"></activity>
 
         <!-- Analytics -->
 

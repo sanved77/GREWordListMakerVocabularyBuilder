@@ -22,7 +22,7 @@
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:background="@color/white"
+                android:background="@color/blue"
                 android:layout_height="?attr/actionBarSize">
 
             </android.support.v7.widget.Toolbar>
@@ -35,8 +35,17 @@
             android:layout_height="match_parent"
             android:scrollbarThumbVertical="@color/black"
             android:scrollbars="vertical"
-            android:background="@color/blue"
+            android:background="@color/white"
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fabAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="22dp"
+            android:src="@drawable/ic_note_add_white_36dp"/>
 
 
     </android.support.design.widget.CoordinatorLayout>
