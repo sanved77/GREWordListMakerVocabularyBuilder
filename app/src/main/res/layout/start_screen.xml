@@ -29,14 +29,23 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv"
+        <android.support.v4.widget.SwipeRefreshLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swiperefresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbarThumbVertical="@color/black"
-            android:scrollbars="vertical"
-            android:background="@color/white"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbarThumbVertical="@color/black"
+                android:scrollbars="vertical"
+                android:background="@color/white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
 
         <android.support.design.widget.FloatingActionButton
@@ -46,6 +55,16 @@
             android:layout_gravity="bottom|right"
             android:layout_margin="22dp"
             android:src="@drawable/ic_note_add_white_36dp"/>
+
+
+        <TextView
+            android:id="@+id/tvPlaceHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:text="Pull Down to Refresh"
+            android:textSize="30sp"
+            android:visibility="visible" />
 
 
     </android.support.design.widget.CoordinatorLayout>

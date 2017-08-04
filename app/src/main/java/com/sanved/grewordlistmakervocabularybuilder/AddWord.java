@@ -16,6 +16,7 @@ public class AddWord extends AppCompatActivity {
 
     EditText word, sentence;
     Button add;
+    SQLiteHelper db;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,6 +32,8 @@ public class AddWord extends AppCompatActivity {
         word = (EditText) findViewById(R.id.etWord);
         sentence = (EditText) findViewById(R.id.etSentence);
 
+        db = new SQLiteHelper(this);
+
         add = (Button) findViewById(R.id.bAdd);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +45,14 @@ public class AddWord extends AppCompatActivity {
                     Toast.makeText(AddWord.this, "Enter a phrase", Toast.LENGTH_SHORT).show();
                 }else if(!(sentence.getText().toString().contains(word.getText().toString()))){
                     Toast.makeText(AddWord.this, "The phrase doesn't contain the word", Toast.LENGTH_SHORT).show();
+                }else{
+                    // Entering the word
+
+                    WordData wd = new WordData(1, word.getText().toString(), sentence.getText().toString());
+                    db.addWord(wd);
+                    Toast.makeText(AddWord.this, "Word Added", Toast.LENGTH_SHORT).show();
+                    finish();
+
                 }
 
             }

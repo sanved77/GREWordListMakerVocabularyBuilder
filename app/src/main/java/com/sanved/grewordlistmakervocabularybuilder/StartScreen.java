@@ -1,12 +1,15 @@
 package com.sanved.grewordlistmakervocabularybuilder;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +19,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.analytics.HitBuilders;
@@ -32,6 +36,9 @@ public class StartScreen extends AppCompatActivity {
     private static Tracker mTracker;
     RVAdapt adapt;
     FloatingActionButton addWord;
+    SQLiteHelper db;
+    TextView tvPlaceHolder;
+    SwipeRefreshLayout swipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,19 +49,21 @@ public class StartScreen extends AppCompatActivity {
 
         fillData();
 
+        new DBSniffer().execute(this);
+
     }
 
-    public void initVals(){
+    public void initVals() {
 
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
 
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         getSupportActionBar().setTitle("Word List");
 
-        rv = (RecyclerView)findViewById(R.id.rv);
+        rv = (RecyclerView) findViewById(R.id.rv);
         llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
         list = new ArrayList<>();
@@ -63,27 +72,107 @@ public class StartScreen extends AppCompatActivity {
         addWord.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(StartScreen.this, AddWord.class);
-                startActivity(i);
+                addWordStart();
             }
         });
 
+        db = new SQLiteHelper(this);
+
+        tvPlaceHolder = (TextView) findViewById(R.id.tvPlaceHolder);
+
+        swipe = (SwipeRefreshLayout) findViewById(R.id.swiperefresh);
+        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Usage")
+                        .setAction("Refresh")
+                        .build());
+
+                list.clear();
+                adapt.notifyDataSetChanged();
+                new DBSniffer().execute(StartScreen.this);
+                swipe.setRefreshing(false);
+
+            }
+        });
     }
 
-    public void fillData(){
+    public void fillData() {
 
-        WordData wd = new WordData(1,"misanthrope", "Being an misanthrope doesn't really mean that the person is an introvert");
-        WordData wd2 = new WordData(1,"ubiquitous", "The greed for money seems to be ubiquitous");
-        WordData wd3 = new WordData(1,"polyglot ", "Polyglots often tend to have a huge memory");
 
-        list.add(wd);
-        list.add(wd2);
-        list.add(wd3);
+        WordData wd = new WordData(1, "misanthrope", "Being an misanthrope doesn't really mean that the person is an introvert");
+        WordData wd2 = new WordData(1, "ubiquitous", "The greed for money seems to be ubiquitous");
+        WordData wd3 = new WordData(1, "polyglot ", "Polyglots often tend to have a huge memory");
 
-        Context con = getApplication();
-        adapt = new RVAdapt(list, con);
+        db.addWord(wd);
+        db.addWord(wd2);
+        db.addWord(wd3);
 
-        rv.setAdapter(adapt);
+
+    }
+
+    class DBSniffer extends AsyncTask<Context, Void, Void> {
+
+        private ProgressDialog progressDialog = new ProgressDialog(StartScreen.this);
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            tvPlaceHolder.setVisibility(View.GONE);
+            progressDialog.setTitle("Loading all the Words");
+            progressDialog.setCancelable(false);
+            progressDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    tvPlaceHolder.setVisibility(View.VISIBLE);
+                    tvPlaceHolder.setText("Pull Down to Refresh");
+                }
+            });
+
+        }
+
+        @Override
+        protected Void doInBackground(Context... contexts) {
+
+            list = db.allWords();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+
+            this.progressDialog.dismiss();
+
+            if (list.isEmpty()) {
+                tvPlaceHolder.setVisibility(View.VISIBLE);
+                tvPlaceHolder.setText("No words yet");
+            } else {
+                Context con = StartScreen.this.getApplication();
+                adapt = new RVAdapt(list, con);
+                rv.setAdapter(adapt);
+            }
+
+        }
+    }
+
+    public void addWordStart(){
+        Intent i = new Intent(StartScreen.this, AddWord.class);
+        startActivityForResult(i, 69);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 69){
+            list.clear();
+            adapt.notifyDataSetChanged();
+            new DBSniffer().execute(StartScreen.this);
+        }
 
     }
 
@@ -99,6 +188,16 @@ public class StartScreen extends AppCompatActivity {
             case R.id.about:
                 Intent i = new Intent(StartScreen.this, AboutCopyright.class);
                 startActivity(i);
+                break;
+
+            case R.id.mrefresh:
+                list.clear();
+                adapt.notifyDataSetChanged();
+                new DBSniffer().execute(StartScreen.this);
+                break;
+
+            case R.id.madd:
+                addWordStart();
                 break;
 
             case R.id.bug:
@@ -174,5 +273,6 @@ public class StartScreen extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        db.deleteAll();
     }
 }
