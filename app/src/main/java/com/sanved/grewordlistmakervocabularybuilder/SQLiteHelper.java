@@ -12,6 +12,10 @@ import java.util.ArrayList;
  * Created by Sanved on 04-08-2017.
  */
 
+/*
+*   Database helper class with all the methods we need.
+ */
+
 public class SQLiteHelper extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -36,6 +40,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
     }
 
+
+    // Used to add new words
     public void addWord(WordData wd) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -47,6 +53,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+
+    // Get aa ArrayList of all words
     public ArrayList<WordData> allWords() {
 
         ArrayList<WordData> wordDataList = new ArrayList<WordData>();
@@ -66,11 +74,16 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return wordDataList;
     }
 
+
+    // Written here is a method use to delete every word/row.
+    // Use it for testing purposes. Not for release.
     public void deleteAll(){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_NAME);
     }
 
+
+    // Searching a word by giving a similar term
     public ArrayList searchWord(String term){
 
         ArrayList<WordData> wordDataList = new ArrayList<WordData>();
@@ -90,6 +103,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return wordDataList;
     }
 
+
+    // Gives an ArrayList with all the words starting from the alphabet which is sent as a parameter.
     public ArrayList<WordData> alphaWords(String s) {
 
         ArrayList<WordData> wordDataList = new ArrayList<WordData>();
@@ -109,11 +124,15 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return wordDataList;
     }
 
+
+    // Delete a given word
     public void deleteWord(String term){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("delete from " + TABLE_NAME + " where word like '"+ term +"'");
     }
 
+
+    // Get the primary ID of any word
     public int getId(String term) {
 
         int id = 99999;
@@ -130,6 +149,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         return id;
     }
 
+
+    // Use to update current word entries
     public void editWord(int id2, WordData wd){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -140,6 +161,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.update(TABLE_NAME, vals, "id="+id2, null);
     }
 
+
+    // Method to search a word by giving it's ID
     public WordData searchWord(int id){
 
         String query = "SELECT  * FROM " + TABLE_NAME + " WHERE id="+ id +"";

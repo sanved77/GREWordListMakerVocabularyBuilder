@@ -80,6 +80,8 @@ public class StartScreen extends AppCompatActivity {
 
         //fillData();
 
+        // Checks if AplhaGrid has sent any alphabet to look for
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
@@ -96,7 +98,7 @@ public class StartScreen extends AppCompatActivity {
         initVals();
 
 
-
+        // This one explains the use of the buttons
 
         new DBSniffer().execute(this);
 
@@ -177,6 +179,9 @@ public class StartScreen extends AppCompatActivity {
 
             @Override
             public void onItemLongClick(View view, final int position) {
+
+                //  Long Click Menu for each Word element.
+
                 final CharSequence[] items = {"Open", "Edit" ,"Hear", "Meaning" ,"Delete", "Share"};
 
                 android.app.AlertDialog.Builder diag = new android.app.AlertDialog.Builder(StartScreen.this);
@@ -199,7 +204,7 @@ public class StartScreen extends AppCompatActivity {
                                         startActivityForResult(i2, 70);
                                         break;
 
-                                    case 1:
+                                    case 1:  // Edit
                                         addWordStart(list.get(position).getWord(),list.get(position).getSentence());
                                         break;
 
@@ -212,7 +217,7 @@ public class StartScreen extends AppCompatActivity {
                                         speakIt(list.get(position).getWord());
                                         break;
 
-                                    case 3:
+                                    case 3:  // Dictionary
                                         Intent intent = new Intent(Intent.ACTION_SEARCH);
                                         intent.setPackage("livio.pack.lang.en_US");//you can use also livio.pack.lang.en_US, livio.pack.lang.es_ES, livio.pack.lang.de_DE, livio.pack.lang.pt_BR or livio.pack.lang.fr_FR
                                         intent.putExtra(SearchManager.QUERY, list.get(position).getWord());
@@ -262,7 +267,7 @@ public class StartScreen extends AppCompatActivity {
                                         alert2.show();
                                         break;
 
-                                    case 5:
+                                    case 5:  // Share
                                         Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
                                         whatsappIntent.setType("text/plain");
                                         whatsappIntent.setPackage("com.whatsapp");
@@ -341,11 +346,15 @@ public class StartScreen extends AppCompatActivity {
 
     }
 
+
+    // Checks if the intent package is there on the phone.
     public boolean isIntentAvailable(Context context, Intent intent) {
         List<ResolveInfo> lri = context.getPackageManager().queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return (lri != null) && (lri.size() > 0);
     }
 
+
+    // This method uses the Text-To-Speech engine on the phone.
     public void speakIt(String thingToSay){
 
         final Snackbar snackbar = Snackbar
@@ -391,6 +400,8 @@ public class StartScreen extends AppCompatActivity {
 
     }
 
+
+    // A stub made to test the data
     public void fillData() {
 
         // Stub
@@ -405,6 +416,8 @@ public class StartScreen extends AppCompatActivity {
 
     }
 
+
+    // An async task to handle the retrieval of the list of word on a different thread.
     class DBSniffer extends AsyncTask<Context, Void, Void> {
 
         private ProgressDialog progressDialog = new ProgressDialog(StartScreen.this);
@@ -457,11 +470,15 @@ public class StartScreen extends AppCompatActivity {
         }
     }
 
+
+    // To add a word
     public void addWordStart() {
         Intent i = new Intent(StartScreen.this, AddWord.class);
         startActivityForResult(i, 69);
     }
 
+
+    // To edit a word
     public void addWordStart(String word, String sentence) {
         Intent i = new Intent(StartScreen.this, AddWord.class);
         i.putExtra("word",word);
@@ -473,12 +490,15 @@ public class StartScreen extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // The list refreshes after the word adding/editing screen is exited.
         if (requestCode == 69 || requestCode == 70) {
             refreshList();
         }
 
     }
 
+
+    // Simple clears the list and reloads the async task to get the new data
     public void refreshList() {
         list.clear();
         adapt.notifyDataSetChanged();

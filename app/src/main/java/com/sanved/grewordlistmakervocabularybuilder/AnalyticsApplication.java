@@ -9,6 +9,10 @@ import com.google.android.gms.analytics.Tracker;
  * Created by Sanved on 03-08-2017.
  */
 
+/*
+*   Standard Google Analytics code, avoid Firebase for now as it has very limited features with Stats.
+*/
+
 public class AnalyticsApplication extends Application {
 
     private static GoogleAnalytics sAnalytics;

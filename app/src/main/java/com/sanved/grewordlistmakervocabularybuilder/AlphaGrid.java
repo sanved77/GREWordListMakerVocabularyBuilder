@@ -16,6 +16,11 @@ import com.google.android.gms.analytics.Tracker;
  * Created by Sanved on 04-08-2017.
  */
 
+/*
+*   AlphaGrid displays a grid of alphabets.
+*   Uses a gridview to display the alphabet tiles
+*/
+
 public class AlphaGrid extends AppCompatActivity {
 
     GridView grid;
@@ -47,6 +52,9 @@ public class AlphaGrid extends AppCompatActivity {
 
         fillAlphabets();
 
+
+        // Creating and Initiating the gridView
+
         grid = (GridView) findViewById(R.id.gridView);
 
         gAdapt = new GridAdapter(this);
@@ -60,6 +68,9 @@ public class AlphaGrid extends AppCompatActivity {
                         .setCategory("Usage")
                         .setAction("Word Added " + alphabets[i])
                         .build());
+
+                // Starts the Main Activity displaying all the word but also sends the selected alphabet
+                // so that only the words starting with that letter appear.
 
                 Intent intent = new Intent(AlphaGrid.this, StartScreen.class);
                 intent.putExtra("alphabet", alphabets[i]);
@@ -75,6 +86,9 @@ public class AlphaGrid extends AppCompatActivity {
         mTracker.setScreenName("AlphaGrid");
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
+
+
+    //  A method written to fill a String array with all the alphabets.
 
     public void fillAlphabets(){
         int i=0;

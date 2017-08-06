@@ -10,6 +10,10 @@ import android.view.View;
  * Created by Sanved on 05-08-2017.
  */
 
+/*
+*   A listener made to get RecyclerView clicks outside the adapter.
+*/
+
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     @Override
     public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {

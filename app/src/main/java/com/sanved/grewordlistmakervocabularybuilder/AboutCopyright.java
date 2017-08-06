@@ -17,6 +17,12 @@ import com.google.android.gms.analytics.Tracker;
  * Created by Sanved on 03-08-2017.
  */
 
+/*
+*  Just a normal About Page with nothing fancy.
+*
+*  A button to the GitHub repo is the only active element on the page.
+*
+*/
 public class AboutCopyright extends AppCompatActivity {
 
     Tracker mTracker;

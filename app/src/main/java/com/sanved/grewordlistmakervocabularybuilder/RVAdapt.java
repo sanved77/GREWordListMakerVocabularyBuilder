@@ -16,6 +16,10 @@ import java.util.ArrayList;
  * Created by Sanved on 03-08-2017.
  */
 
+/*
+*   RecyclerView Adapter for the Word List
+*   Uses list_item.xml for every element
+*/
 public class RVAdapt extends RecyclerView.Adapter<RVAdapt.DataHolder> {
 
     ArrayList<WordData> list;

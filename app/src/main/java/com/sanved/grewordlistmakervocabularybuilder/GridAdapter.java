@@ -33,7 +33,7 @@ public class GridAdapter extends BaseAdapter {
 
             gridView = new View(context);
 
-            // get layout from mobile.xml
+            // get layout from grid_item.xml
             gridView = inflater.inflate(R.layout.grid_item, null);
 
             // set value into textview

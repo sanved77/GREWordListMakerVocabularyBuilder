@@ -18,6 +18,11 @@ import com.google.android.gms.analytics.Tracker;
  * Created by Sanved on 04-08-2017.
  */
 
+/*
+*   This Activity is here to add a word onto the database
+*   It is also use to edit an existing word
+*/
+
 public class AddWord extends AppCompatActivity {
 
     EditText word, sentence;
@@ -37,6 +42,12 @@ public class AddWord extends AppCompatActivity {
 
         initVals();
 
+        /*
+        *   If someone wants to edit a word then this Activity gets the word and sentence from the previous activity
+        *   Otherwise they are null
+        *   The date sent is taken.
+        */
+
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
 
@@ -54,6 +65,9 @@ public class AddWord extends AppCompatActivity {
         if(strWord == null) isEdit = false;
         else isEdit = true;
 
+        //  If the word is to be edited, then Edittexts are filled with the data
+        //  and the Button text changes from Add to Update
+
         if(isEdit){
             keyid = db.getId(strWord);
             word.setText(strWord);
@@ -66,6 +80,8 @@ public class AddWord extends AppCompatActivity {
 
     public void initVals(){
 
+        // Just declaration and initialisation of the variables.
+
         word = (EditText) findViewById(R.id.etWord);
         sentence = (EditText) findViewById(R.id.etSentence);
 
@@ -76,6 +92,7 @@ public class AddWord extends AppCompatActivity {
         AnalyticsApplication application = (AnalyticsApplication) getApplication();
         mTracker = application.getDefaultTracker();
 
+        // This is the SQLiteHelper object which we will need later.
         db = new SQLiteHelper(this);
 
         add = (Button) findViewById(R.id.bAdd);
@@ -83,11 +100,18 @@ public class AddWord extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                // Validations
+
+                // If the word is empty
                 if(word.getText().toString() == null){
                     Toast.makeText(AddWord.this, "Please enter the word", Toast.LENGTH_SHORT).show();
-                }else if(sentence.getText().toString() == null){
+                }
+                // If the sentence is empty
+                else if(sentence.getText().toString() == null){
                     Toast.makeText(AddWord.this, "Enter a phrase", Toast.LENGTH_SHORT).show();
-                }else{
+                }
+
+                else{
                     // Entering the word
 
                     mTracker.send(new HitBuilders.EventBuilder()
@@ -95,8 +119,14 @@ public class AddWord extends AppCompatActivity {
                             .setAction("Word Added " + word.getText().toString())
                             .build());
 
+                    /*
+                    *   Creating an object of the class WordData, which we made
+                    *   This object is sent to the DataBase helper so that it can be added.
+                    */
+
                     WordData wd = new WordData(1, word.getText().toString(), sentence.getText().toString());
 
+                    // If an edit was happening, it will invoke the editword method or else it will add the new word.
                     if(isEdit) {
                         db.editWord(keyid,wd);
                         Toast.makeText(AddWord.this, "Word Edited", Toast.LENGTH_SHORT).show();

@@ -42,6 +42,12 @@ import java.util.Locale;
  * Created by Sanved on 04-08-2017.
  */
 
+
+/*
+*   The Activity which shows the Word and the phrase
+*/
+
+
 public class WordScreen extends AppCompatActivity {
 
     TextView word, sentence;
