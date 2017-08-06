@@ -2,6 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/action_search"
+        android:title=""
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/malphagrid"
+        android:orderInCategory="30"
+        android:title="Alphabetically"
+        android:icon="@drawable/ic_sort_by_alpha_white_36dp"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/mshuffle"
+        android:orderInCategory="40"
+        android:title="Shuffle"
+        android:icon="@drawable/ic_shuffle_white_36dp"
+        app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/madd"
         android:orderInCategory="50"
@@ -38,12 +56,6 @@
         android:id="@+id/mshare"
         android:orderInCategory="600"
         android:title="Share this App"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/disclaim"
-        android:orderInCategory="700"
-        android:title="Settings"
         app:showAsAction="never" />
 
 

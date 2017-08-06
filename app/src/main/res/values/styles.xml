@@ -11,7 +11,9 @@
 
     <!-- Button theme -->
     <style name="AppTheme.Button" parent="Widget.AppCompat.Button.Colored">
-        <item name="colorButtonNormal">@color/white</item>
-        <item name="android:textColor">@color/blue</item>
+        <item name="colorButtonNormal">@color/colorAccent</item>
+        <item name="android:textColor">@color/white</item>
     </style>
+
+
 </resources>

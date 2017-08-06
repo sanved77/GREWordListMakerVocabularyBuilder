@@ -1,47 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.design.widget.CoordinatorLayout android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <EditText
-        android:id="@+id/etWord"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="40dp"
-        android:hint="Enter Word"
-        android:maxLines="1"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp"
-        android:textColorHint="@color/grey"
-        android:shadowColor="@color/white"
-        android:textColor="@android:color/white" />
+        android:layout_height="match_parent"
+        android:background="@color/blue"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etWord"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp"
+            android:hint="Enter Word"
+            android:maxLines="1"
+            android:inputType="text"
+            android:nextFocusForward="@+id/etSentence"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:textColorHint="@color/grey"
+            android:shadowColor="@color/white"
+            android:imeOptions="actionNext"
+            android:textColor="@android:color/white" >
+
+        </EditText>
+
+        <EditText
+            android:id="@+id/etSentence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:hint="Use it in a phrase"
+            android:inputType="textCapSentences"
+            android:textColorHint="@color/grey"
+            android:textColor="@android:color/white"
+            android:shadowColor="@color/white"
+            android:imeOptions="actionDone"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp" />
 
 
-    <EditText
-        android:id="@+id/etSentence"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="20dp"
-        android:hint="Use it in a phrase"
-        android:textColorHint="@color/grey"
-        android:textColor="@android:color/white"
-        android:shadowColor="@color/white"
-        android:layout_marginRight="15dp"
-        android:layout_marginLeft="15dp" />
+        <Button
+            android:textStyle="bold"
+            android:id="@+id/bAdd"
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:theme="@style/AppTheme.Button"
+            android:text="Add"/>
 
+    </LinearLayout>
 
-    <Button
-        android:textStyle="bold"
-        android:id="@+id/bAdd"
-        android:layout_marginTop="25dp"
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_gravity="top|left"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:theme="@style/AppTheme.Button"
-        android:text="Add"/>
+        android:src="@drawable/ic_arrow_back_white_36dp"
+        android:background="@null"
+        android:padding="8dp"
+        android:layout_height="wrap_content" />
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
+

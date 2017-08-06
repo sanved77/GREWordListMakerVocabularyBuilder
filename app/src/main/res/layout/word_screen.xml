@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl1"
+    android:layout_width="match_parent"
+    android:background="@color/blue"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="28sp"
+            android:text="misanthrope"
+            android:id="@+id/tvWord"
+            android:textColor="@color/white"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/white"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textStyle="italic"
+            android:text="Being a misanthrope doesn't really mean that the person is an introvert."
+            android:layout_marginTop="5dp"
+            android:id="@+id/tvSentence"
+            android:layout_gravity="center_horizontal" />
+
+
+        <LinearLayout
+            android:id="@+id/llbuttons"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/ibSpeak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginRight="15dp"
+                android:src="@drawable/ic_volume_up_white_48dp"/>
+            <ImageButton
+                android:id="@+id/ibDict"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_find_in_page_white_48dp"/>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+    <ImageButton
+        android:id="@+id/ibBack"
+        android:layout_gravity="top|left"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_arrow_back_white_36dp"
+        android:background="@null"
+        android:layout_margin="15dp"
+        android:padding="8dp"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/ibDelete"
+        android:layout_gravity="bottom|right"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_delete_forever_white_36dp"
+        android:background="@null"
+        android:layout_margin="15dp"
+        android:padding="8dp"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/ibShare"
+        android:layout_gravity="bottom|center"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_share_white_36dp"
+        android:background="@null"
+        android:layout_margin="15dp"
+        android:padding="8dp"
+        android:layout_height="wrap_content" />
+
+    <ImageButton
+        android:id="@+id/ibEdit"
+        android:layout_gravity="bottom|left"
+        android:layout_width="wrap_content"
+        android:src="@drawable/ic_edit_white_36dp"
+        android:background="@null"
+        android:layout_margin="15dp"
+        android:padding="8dp"
+        android:layout_height="wrap_content" />
+
+</android.support.design.widget.CoordinatorLayout>

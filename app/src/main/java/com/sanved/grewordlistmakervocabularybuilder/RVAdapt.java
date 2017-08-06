@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
@@ -27,10 +26,12 @@ public class RVAdapt extends RecyclerView.Adapter<RVAdapt.DataHolder> {
 
     RVAdapt(ArrayList<WordData> list, Context context){
         this.list = list;
-        list2 = list;
+        list2 = new ArrayList<>();
+        list2.addAll(list);
         this.context = context;
         AnalyticsApplication application = (AnalyticsApplication) context;
         mTracker = application.getDefaultTracker();
+
     }
 
     public static class DataHolder extends RecyclerView.ViewHolder {
@@ -43,20 +44,24 @@ public class RVAdapt extends RecyclerView.Adapter<RVAdapt.DataHolder> {
             word = (TextView) v.findViewById(R.id.tvWord);
             sentence = (TextView) v.findViewById(R.id.tvSentence);
             cv = (LinearLayout) v.findViewById(R.id.cvList);
-            cv.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mTracker.send(new HitBuilders.EventBuilder()
-                            .setCategory("Word")
-                            .setAction(list2.get(getAdapterPosition()).getWord())
-                            .build());
-
-
-                }
-
-            });
         }
 
+    }
+
+
+    public void filter(String text) {
+        list.clear();
+        if(text.isEmpty()){
+            list.addAll(list2);
+        } else{
+            text = text.toLowerCase();
+            for(WordData wd: list2){
+                if(wd.getWord().toString().toLowerCase().contains(text)){
+                    list.add(wd);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     @Override

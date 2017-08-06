@@ -71,4 +71,90 @@ public class SQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("delete from " + TABLE_NAME);
     }
 
+    public ArrayList searchWord(String term){
+
+        ArrayList<WordData> wordDataList = new ArrayList<WordData>();
+        String query = "SELECT  * FROM " + TABLE_NAME + " WHERE word LIKE '%"+ term +"%'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        WordData word = null;
+
+        if (cursor.moveToFirst()) {
+            do {
+                word = new WordData(cursor.getInt(3),cursor.getString(1), cursor.getString(2));
+
+                wordDataList.add(word);
+            } while (cursor.moveToNext());
+        }
+
+        return wordDataList;
+    }
+
+    public ArrayList<WordData> alphaWords(String s) {
+
+        ArrayList<WordData> wordDataList = new ArrayList<WordData>();
+        String query = "SELECT  * FROM " + TABLE_NAME + " WHERE word LIKE '" +s+ "%'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        WordData word = null;
+
+        if (cursor.moveToFirst()) {
+            do {
+                word = new WordData(cursor.getInt(3),cursor.getString(1), cursor.getString(2));
+
+                wordDataList.add(word);
+            } while (cursor.moveToNext());
+        }
+
+        return wordDataList;
+    }
+
+    public void deleteWord(String term){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("delete from " + TABLE_NAME + " where word like '"+ term +"'");
+    }
+
+    public int getId(String term) {
+
+        int id = 99999;
+        String query = "SELECT  * FROM " + TABLE_NAME + " WHERE word LIKE '" + term + "'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                id = cursor.getInt(0);
+            } while (cursor.moveToNext());
+        }
+
+        return id;
+    }
+
+    public void editWord(int id2, WordData wd){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues vals = new ContentValues();
+        vals.put(KEY_WORD,wd.getWord());
+        vals.put(KEY_SENTENCE, wd.getSentence());
+
+        db.update(TABLE_NAME, vals, "id="+id2, null);
+    }
+
+    public WordData searchWord(int id){
+
+        String query = "SELECT  * FROM " + TABLE_NAME + " WHERE id="+ id +"";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        WordData word = null;
+
+        if (cursor.moveToFirst()) {
+            do {
+                word = new WordData(cursor.getInt(3),cursor.getString(1), cursor.getString(2));
+
+            } while (cursor.moveToNext());
+        }
+
+        return word;
+    }
+
 }
